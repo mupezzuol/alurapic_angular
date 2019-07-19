@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { PhotoService } from './photos/photo/photo.service';
 
 //Component -> É um decorator, nele configuramos 'metadata' que determina como componente irá ser processado, instanciado, usado etc...
 @Component({
@@ -12,9 +12,11 @@ export class AppComponent {
   //Array do tipo Object recebendo vazio
   photos: Object[] = [];
 
-  constructor(http: HttpClient){
-    http.get<Object[]>('http://localhost:3000/flavio/photos')
+  constructor(photoService: PhotoService){
+
+    photoService.listFromUser('flavio')
       .subscribe(photos => this.photos = photos);
+
   }
 
 
