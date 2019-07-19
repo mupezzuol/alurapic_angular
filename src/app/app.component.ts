@@ -9,11 +9,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
 
-  //Array de objetos de Photos
-  photos = [];
+  //Array do tipo Object recebendo vazio
+  photos: Object[] = [];
 
   constructor(http: HttpClient){
-    console.log(http);
+    
+    http.get<Object[]>('http://localhost:3000/flavio/photos')
+      .subscribe(photos => this.photos = photos);
   }
+
+
 
 }
