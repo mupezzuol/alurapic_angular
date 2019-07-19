@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Photo } from "./photo";
 
 const API = 'http://localhost:3000';//Constante
 
@@ -14,7 +15,7 @@ export class PhotoService{
     //Método retorna um objeto Observable
     listFromUser(userName: string){
         return this.http
-            .get<Object[]>(API + '/' + userName + '/photos');
+            .get<Photo[]>(API + '/' + userName + '/photos');
     }
 
 }
