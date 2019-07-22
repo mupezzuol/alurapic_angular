@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 import { Photo } from '../photo/photo';
+import { PhotoService } from '../photo/photo.service';
 
 @Component({
   selector: 'ap-photo-list',
@@ -16,12 +17,20 @@ export class PhotoListComponent implements OnInit, OnDestroy {
   photos: Photo[] = [];
   filter: string = '';
   debounce: Subject<string> = new Subject<string>();
+  hasMore: boolean = true;
+  currentPage: number = 1;
+  userName: string = '';
+
 
   //Constructors -> Usado para injeção de dependencia
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private photoService: PhotoService
+  ) { }
 
   //ngOnInit -> Usado para inicialização (usamos a interface 'OnInit' para auxiliar)
   ngOnInit(): void {
+    this.userName = this.activatedRoute.snapshot.params.userName;
     //snapshot -> Me da uma fotografia de como estamos agora e usando 'data' pegamos os dados/retorno da propriedade setada 'photos' lá nas rotas
     //Irá apresentar quando tudo tiver 'RESOLVIDO', portanto o usuário não irá ver mensagens desnecessário em segundos
     this.photos = this.activatedRoute.snapshot.data['photos'];
@@ -39,6 +48,15 @@ export class PhotoListComponent implements OnInit, OnDestroy {
   //Quando meu Component for destruido ele limpará o debounce para liberar memória
   ngOnDestroy(): void {
     this.debounce.unsubscribe();
+  }
+
+  load() {
+    this.photoService
+      .listFromUserPaginated(this.userName, ++this.currentPage)
+      .subscribe(photos => {
+        this.photos = this.photos.concat(photos);//Atualizo as fotos novamente
+        if (!photos.length) this.hasMore = false;
+      });
   }
 
 }
