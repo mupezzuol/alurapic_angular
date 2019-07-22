@@ -16,21 +16,13 @@ export class PhotoListComponent implements OnInit {
   filter: string = '';
 
   //Constructors -> Usado para injeção de dependencia
-  constructor(
-    private photoService: PhotoService,
-    private activatedRoute: ActivatedRoute
-  ) { }
+  constructor( private activatedRoute: ActivatedRoute) { }
 
   //ngOnInit -> Usado para inicialização (usamos a interface 'OnInit' para auxiliar)
   ngOnInit(): void {
-
-    //Atribuo meu parametro passado na URL/Rota em uma variavel
-    const userName = this.activatedRoute.snapshot.params.userName;
-
-    this.photoService.listFromUser(userName)
-      .subscribe(photos => {
-        this.photos = photos
-      });
+    //snapshot -> Me da uma fotografia de como estamos agora e usando 'data' pegamos os dados/retorno da propriedade setada 'photos' lá nas rotas
+    //Irá apresentar quando tudo tiver 'RESOLVIDO', portanto o usuário não irá ver mensagens desnecessário em segundos
+    this.photos = this.activatedRoute.snapshot.data['photos'];
   }
 
 }
