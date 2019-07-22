@@ -22,7 +22,6 @@ ngOnInit(): void {
   
   this.photoService.listFromUser('flavio')
     .subscribe(photos => {
-      console.log(photos[0].userId);
       this.photos = photos
     });
 }
