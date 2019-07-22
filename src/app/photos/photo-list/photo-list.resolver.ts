@@ -14,7 +14,7 @@ export class PhotoListResolver implements Resolve<Observable<Photo[]>>{
         //Fotografia de onde estamos agora URL atual
         const userName = route.params.userName;
 
-        return this.photoService.listFromUser(userName);
+        return this.photoService.listFromUserPaginated(userName, 1);
     }
 
 }
