@@ -13,6 +13,7 @@ export class PhotoListComponent implements OnInit {
 
   //Array do tipo Object recebendo vazio
   photos: Photo[] = [];
+  filter: string = '';
 
   //Constructors -> Usado para injeção de dependencia
   constructor(
