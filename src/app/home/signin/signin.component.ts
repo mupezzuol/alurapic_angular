@@ -2,7 +2,8 @@ import { Component, OnInit, ElementRef, ViewChildren, ViewChild } from '@angular
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from 'src/app/core/auth.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 
 @Component({
     templateUrl: './signin.component.html'
@@ -17,7 +18,8 @@ export class SignInComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private authService: AuthService,
-        private route: Router) {
+        private route: Router,
+        private platformDetectorService: PlatformDetectorService) {
 
     }
 
@@ -46,7 +48,11 @@ export class SignInComponent implements OnInit {
                 err => {
                     console.log('ERRO DE AUTENTICAÇÃO: ' + err.message);
                     this.loginForm.reset();//Limpa o formulário
-                    this.userNameInput.nativeElement.focus();
+
+                    //Verifico se está sendo executado na plataforma WEB, se for TRUE, ele executa o próximo comando do focus(), caso contrário ele não executa
+                    //Usamos essa verificação para não gerar conflitos futuros
+                    this.platformDetectorService.isPlatformBrowser() &&
+                        this.userNameInput.nativeElement.focus();
                     alert('Username or Password is incorrect!');
                 });
 
