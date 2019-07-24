@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChildren, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
     templateUrl: './signin.component.html'
@@ -9,6 +10,9 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
 
     loginForm: FormGroup;
+
+    //Acesso elemento do DOM do filho, ou seja, do HTML desse Component. No html eu adc '#userNameInput' em qualquer elemento e resgato com @ViewChild
+    @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>; 
 
     constructor(
         private formBuilder: FormBuilder,
@@ -42,6 +46,7 @@ export class SignInComponent implements OnInit {
                 err => {
                     console.log('ERRO DE AUTENTICAÇÃO: ' + err.message);
                     this.loginForm.reset();//Limpa o formulário
+                    this.userNameInput.nativeElement.focus();
                     alert('Username or Password is incorrect!');
                 });
 
