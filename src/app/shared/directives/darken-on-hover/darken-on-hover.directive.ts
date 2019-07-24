@@ -22,7 +22,6 @@ export class DarkenOnHoverDirectvive{
     @HostListener('mouseover')
     darkenOn(){
         this.render.setElementStyle(this.el.nativeElement, 'filter', `brightness(${this.brightness})`);
-        console.log('entrei');
     }
 
     @HostListener('mouseleave')
