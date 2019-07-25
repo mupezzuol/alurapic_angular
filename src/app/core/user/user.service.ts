@@ -22,7 +22,7 @@ export class UserService{
         const token = this.tokenService.getToken();//Resgato o Token
         
         // aqui a chamada 'jwt_decode' que descriptografa nosso token, onde nele teremos informações de usuário
-        //Como já sabemos as informações que do Payload que descriptografamos, nós criamos uma interface de usuário, e na chamada nós já fazemos um CAST de User (as)
+        //Como já sabemos as informações que do Payload do token que descriptografamos, nós criamos uma interface de usuário, e na chamada nós já fazemos um CAST de User (as)
         const user = jwt_decode(token) as User;
         this.userSubject.next(user);
     }
