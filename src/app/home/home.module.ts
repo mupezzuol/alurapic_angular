@@ -1,21 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { SignInComponent } from './signin/signin.component';
 import { VMessageModule } from '../shared/components/vmessage/vmessage.module';
+import { SignUpComponent } from './signup/signup.component';
 
 //Para ser acesso via app.module não preciso usar o EXPORTS, pois não estamos acessando Template nem nada...
 @NgModule({
     declarations: [
-        SignInComponent
+        SignInComponent,
+        SignUpComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         VMessageModule,
-        RouterModule
+        RouterModule,
+        FormsModule
     ]
 })
 export class HomeModule{
