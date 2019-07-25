@@ -1,6 +1,6 @@
 import { TokenService } from './../token/token.service';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import * as jwt_decode from 'jwt-decode'//Importanto tudo (*) de jwt-decode e dando um alias para ele as (jtw_decode)
 
 import { User } from './user';
@@ -10,7 +10,9 @@ import { User } from './user';
 })
 export class UserService{
 
-    private userSubject = new Subject<User>();
+    // BehaviorSubject -> ele guarda o valor e ficar aguarando até alguém precisar usar, quem for solicitar ele, irá pegar o último valor atribuido para ele
+    // Obrigatoriamente nós devemos inicializar um valor no construtor dele, por isso adcionamos null
+    private userSubject = new BehaviorSubject<User>(null);
 
     constructor(private tokenService: TokenService){
         //Quando o serviço for chamado ele irá validar se tem token, se tiver token é pq está LOGADO, portanto ele irá descriptografar o Token e resgatar o User
@@ -34,7 +36,7 @@ export class UserService{
 
     //Retorno u usuário que está em Subject como um Observable (posso utilizar o subscribe)
     getUser() {
-        return this.userSubject.asObservable();
+        return this.userSubject.asObservable();//Converto para Observable
     }
 
 }
