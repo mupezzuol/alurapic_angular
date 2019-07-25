@@ -11,6 +11,7 @@ import { User } from './user';
 export class UserService{
 
     // BehaviorSubject -> ele guarda o valor e ficar aguarando até alguém precisar usar, quem for solicitar ele, irá pegar o último valor atribuido para ele
+    // O BehaviorSubject armazena a última emissão até que alguém apareça para consumi-la.
     // Obrigatoriamente nós devemos inicializar um valor no construtor dele, por isso adcionamos null
     private userSubject = new BehaviorSubject<User>(null);
 
