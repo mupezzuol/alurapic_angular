@@ -14,6 +14,7 @@ export class UserService{
     // O BehaviorSubject armazena a última emissão até que alguém apareça para consumi-la.
     // Obrigatoriamente nós devemos inicializar um valor no construtor dele, por isso adcionamos null
     private userSubject = new BehaviorSubject<User>(null);
+    private userName: string;
 
     constructor(private tokenService: TokenService){
         //Quando o serviço for chamado ele irá validar se tem token, se tiver token é pq está LOGADO, portanto ele irá descriptografar o Token e resgatar o User
@@ -27,6 +28,7 @@ export class UserService{
         // aqui a chamada 'jwt_decode' que descriptografa nosso token, onde nele teremos informações de usuário
         //Como já sabemos as informações que do Payload do token que descriptografamos, nós criamos uma interface de usuário, e na chamada nós já fazemos um CAST de User (as)
         const user = jwt_decode(token) as User;
+        this.userName = user.name;
         this.userSubject.next(user);
     }
     
@@ -38,6 +40,21 @@ export class UserService{
     //Retorno u usuário que está em Subject como um Observable (posso utilizar o subscribe)
     getUser() {
         return this.userSubject.asObservable();//Converto para Observable
+    }
+
+    logout(){
+        this.tokenService.removeToken();
+
+        //Next é sempre o último valor do nosso objetos derivados de 'subject' portanto limpamos o valor de usuário, na tela irá aparecer para logar, pois usuário será limpado
+        this.userSubject.next(null);
+    }
+
+    isLogged() {
+        return this.tokenService.hasToken();
+    }
+
+    getUserName(){
+        return this.userName;
     }
 
 }
