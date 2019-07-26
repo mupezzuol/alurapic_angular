@@ -24,12 +24,14 @@ export class SignInComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         //Pegando os valores do Formulário (No form existe a diretiva 'formControlName') e aplica os Validators (required, max, min etc...)
         this.loginForm = this.formBuilder.group({
             userName: ['', Validators.required],
             password: ['', Validators.required]
         });
+
+        this.platformDetectorService.isPlatformBrowser() &&
+                        this.userNameInput.nativeElement.focus();
     }
 
     login() {
