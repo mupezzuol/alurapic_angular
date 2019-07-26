@@ -48,7 +48,7 @@ const routes: Routes = [
 
 //forRoot -> Endereço localhost... a partir dele aceitar as rotas que está em array do tipo Routes
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, { useHash: true })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {
