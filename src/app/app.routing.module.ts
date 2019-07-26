@@ -10,21 +10,17 @@ import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 import { SignInComponent } from './home/signin/signin.component';
 import { SignUpComponent } from './home/signup/signup.component';
 
+//Crio uma separação das URL's, ao acessar home, ele ira concatenar tudo q vem dps como por exemplo: /home/singup e /home/signin
+// pathMatch: 'full' -> Faz com que nós queremos a URL exato, caso contrário ele irá se perder nas rotas
 const routes: Routes = [
     {
         path: '',
-        component: HomeComponent,
-        canActivate: [AuthGuard],
-        children:[
-            {
-                path: '',
-                component: SignInComponent,
-            },
-            {
-                path: 'signup',
-                component: SignUpComponent,
-            }
-        ]
+        pathMatch: 'full',
+        redirectTo: 'home'
+    },
+    {
+        path: 'home',
+        loadChildren: './home/home.module#HomeModule'
     },
     
     {
