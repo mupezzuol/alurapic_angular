@@ -8,8 +8,13 @@ import { lowerCaseValidator } from 'src/app/shared/validators/lower-case.validat
 import { NewUser } from './new-user';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 
+
+//Se alguém pedir pra injetar o 'UserNotTakenValidatorService' eu digo que eu vou prover esse cara
 @Component({
-    templateUrl: './signup.component.html'
+    templateUrl: './signup.component.html',
+    providers: [
+        UserNotTakenValidatorService
+    ]
 })
 export class SignUpComponent implements OnInit{
     

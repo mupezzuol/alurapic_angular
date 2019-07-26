@@ -4,7 +4,8 @@ import { debounceTime, switchMap, map, first } from 'rxjs/operators';
 
 import { SignUpService } from './signup.service';
 
-@Injectable({ providedIn: 'root' })
+//Eu adiciono 'providers' no component 'SignupComponent' pois é ele que usa esse Service
+@Injectable()
 export class UserNotTakenValidatorService {
 
     constructor(private signUpService: SignUpService) {}
