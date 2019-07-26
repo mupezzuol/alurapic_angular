@@ -1,7 +1,11 @@
-import { UserNotTakenValidatorService } from './user-not-taken.validator.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { SignUpService } from './signup.service';
+import { UserNotTakenValidatorService } from './user-not-taken.validator.service';
 import { lowerCaseValidator } from 'src/app/shared/validators/lower-case.validator';
+import { NewUser } from './new-user';
 
 @Component({
     templateUrl: './signup.component.html'
@@ -12,7 +16,9 @@ export class SignUpComponent implements OnInit{
     
     constructor(
         private formBuilder: FormBuilder,
-        private userNotTakenValidatorService: UserNotTakenValidatorService){ }
+        private userNotTakenValidatorService: UserNotTakenValidatorService,
+        private signupService: SignUpService,
+        private router: Router){ }
     
     ngOnInit(): void {
 
@@ -49,5 +55,21 @@ export class SignUpComponent implements OnInit{
         });
 
     }
+
+
+    signup(){
+        // -> Pega todos os valores do inputs de acordo com o key adquirido no formControlName 'email, fullName, userName, password'
+        const newUser = this.signupForm.getRawValue() as NewUser;//Faço cast para 'NewUser'
+
+        //Subscribe: 1º param é o retorno qnd deu CERTO e o 2ª é o retorno do Error quando algo aconteceu
+        this.signupService
+            .signup(newUser)
+            .subscribe(() => {
+                this.router.navigate(['']),
+                err => console.log('err')
+            })
+    }
+
+
 
 }   
