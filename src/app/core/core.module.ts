@@ -1,3 +1,4 @@
+import { FooterComponent } from './footer/footer.component';
 import { RequestInterceptor } from './auth/request.interceptor';
 import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
@@ -9,14 +10,16 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // multi -> é que se tiver outro INTERCEPTADOR ele poderá seguir em frente
 @NgModule({
     declarations:[
-        HeaderComponent
+        HeaderComponent,
+        FooterComponent
     ],
     imports: [
         CommonModule,
         RouterModule
     ],
     exports: [
-        HeaderComponent
+        HeaderComponent,
+        FooterComponent
     ],
     providers: [
         {
