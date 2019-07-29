@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class PhotoFormComponent implements OnInit {
 
   photoForm: FormGroup;
+  file: File;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -18,6 +19,15 @@ export class PhotoFormComponent implements OnInit {
       description: ['', Validators.maxLength(300)],
       allowComments: [true] //Valor inicializado será TRUE, ou seja, virá ticado, porém não terá validação nenhuma
     });
+  }
+
+  upload(){
+    const description = this.photoForm.get('description').value;//Pegando valor solto
+    const allowComments = this.photoForm.get('allowComments').value;//Pegando valor solto
+
+    console.log(description);
+    console.log(allowComments);
+    console.log(this.file);
   }
 
 

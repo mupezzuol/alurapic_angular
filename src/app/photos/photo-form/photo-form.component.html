@@ -1,7 +1,14 @@
 <div class="container">
-  <form class="row" [formGroup]="photoForm">
+  <form class="row" [formGroup]="photoForm" (submit)="upload()">
     <div class="col-md-6 text-center">
-      <input type="file" accept="image/*" formControlName="file">
+      <!--Eu acesso o evento 'change' do HTML, e atribuo o valor da imagem para variavel do component... type file existe sempre atributos 'files' podendo
+        ser um array de N itens, portanto nesse caso seleciona somente 1 foto, por isso setamos direto o index 0 do array de 'files'
+      -->
+      <input 
+        type="file" 
+        accept="image/*" 
+        formControlName="file"
+        (change)="file = $event.target.files[0]">
       <ap-vmessage
         text="Please, select a photo"
         *ngIf="photoForm.get('file').errors?.required">
