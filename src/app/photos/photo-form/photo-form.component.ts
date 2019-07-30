@@ -1,7 +1,8 @@
-import { PhotoService } from './../photo/photo.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { PhotoService } from './../photo/photo.service';
 
 @Component({
   selector: 'ap-photo-form',
@@ -12,6 +13,7 @@ export class PhotoFormComponent implements OnInit {
 
   photoForm: FormGroup;
   file: File;
+  preview: string;//Receberá a foto no formato base64 para apresentar como preview
 
   constructor(
       private formBuilder: FormBuilder,
@@ -34,6 +36,18 @@ export class PhotoFormComponent implements OnInit {
       .upload(desc, allowComments, this.file)
       .subscribe(() => this.router.navigate(['']));
 
+  }
+
+
+  //Lendo o arquivo + convertendo para base64 + jogando na variavel preview
+  handleFile(file: File){
+    this.file = file;//Pego o file do HTML
+    const reader = new FileReader();//Uso o FileReader para converter o File para base64 etc...
+
+    //'onload' -> Qnd terminar o seu trabalho nós iremos adicionar o valor do 'event' em nossa variavel de preview do tipo String com a conversão em base64
+    // Por ser assincrona retorna um Callback, portanto nós usamos ArrowFunction
+    reader.onload = (event: any) => this.preview = event.target.result;//Result -> é onde tem o resultado do 'readAsDataURL'
+    reader.readAsDataURL(file);//Lendo a URL do file
   }
 
 
