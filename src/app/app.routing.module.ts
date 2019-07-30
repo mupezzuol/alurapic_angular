@@ -1,4 +1,3 @@
-import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,8 +6,6 @@ import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
-import { SignInComponent } from './home/signin/signin.component';
-import { SignUpComponent } from './home/signup/signup.component';
 
 //Crio uma separação das URL's, ao acessar home, ele ira concatenar tudo q vem dps como por exemplo: /home/singup e /home/signin
 // pathMatch: 'full' -> Faz com que nós queremos a URL exato, caso contrário ele irá se perder nas rotas
@@ -33,7 +30,8 @@ const routes: Routes = [
 
     {
         path: "p/add",
-        component: PhotoFormComponent
+        component: PhotoFormComponent,
+        canActivate: [AuthGuard]
     },
     
     {
