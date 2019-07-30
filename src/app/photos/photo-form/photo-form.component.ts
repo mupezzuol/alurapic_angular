@@ -46,7 +46,7 @@ export class PhotoFormComponent implements OnInit {
 
     //'onload' -> Qnd terminar o seu trabalho nós iremos adicionar o valor do 'event' em nossa variavel de preview do tipo String com a conversão em base64
     // Por ser assincrona retorna um Callback, portanto nós usamos ArrowFunction
-    reader.onload = (event: any) => this.preview = event.target.result;//Result -> é onde tem o resultado do 'readAsDataURL'
+    reader.onload = (event: any) => this.preview = event.target.result;//Result -> é onde tem o resultado do readAsDataURL'
     reader.readAsDataURL(file);//Lendo a URL do file
   }
 
