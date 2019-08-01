@@ -15,7 +15,7 @@ export class PhotoDetailsComponent implements OnInit{
     
     //Vamos utilizar o ASYNC + PIPE para tratar erros em console etc... boa prática
     photo$: Observable<Photo>;
-    comments$: Observable<PhotoComment[]>;
+    photoId: number;
 
     constructor(
         private route: ActivatedRoute,
@@ -24,12 +24,10 @@ export class PhotoDetailsComponent implements OnInit{
     ngOnInit(): void {
         //snapshot -> Fotografia atual de onde estou, componentes etc... ou seja, contexto atual que seria o rounterLink etc...
         //Params -> é para pegar os parametros que foram passados + o nome passado é o mesmo nome usado na URL (nome coringa) no arquivo de rotas ':photoId'
-        const photoId = this.route.snapshot.params.photoId;
+        this.photoId = this.route.snapshot.params.photoId;
         
         //Usamos o ASYNC + PIPE e o Subscribe é feito no HTML na expressão passada pro *ngIf
-        this.photo$ = this.photoService.findById(photoId);
-        this.comments$ = this.photoService.getComments(photoId);
-
+        this.photo$ = this.photoService.findById(this.photoId);
     }
     
 }
