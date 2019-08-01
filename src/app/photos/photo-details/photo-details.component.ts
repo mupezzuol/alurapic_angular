@@ -8,8 +8,7 @@ import { Observable } from 'rxjs';
 
 @Component({
     selector: 'ap-photo-details',
-    templateUrl: './photo-details.component.html',
-    styleUrls: ['./photo-details.css']
+    templateUrl: './photo-details.component.html'
 })
 export class PhotoDetailsComponent implements OnInit{
     
