@@ -1,6 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { PhotoService } from './../../photo/photo.service';
 import { PhotoComment } from './../../photo/photo-comment';
@@ -32,13 +33,25 @@ export class PhotoCommentsComponent implements OnInit{
         //Pego valor do INPUT de comentários
         const comment = this.commentForm.get('comment').value as string;
         
-        this.photoService
-            .addComments(this.photoId, comment)
-            .subscribe( () => {
-                this.commentForm.reset(); //Limpa o formulário de comentário
-                alert('Comentário adicionado com sucesso');
-            });
 
+        /*
+        1. Faço meu comments receber as instruções, pois o último OBSERVABLE a ser executado é o de getComments() que retornar comments
+        2. Eu executo o primeiro observable, que é o addComment
+        3. Usando o PIPE eu chamo o switchMap que vai executar a operação de outro OBSERVABLE após o observable anterior ter sido concluido
+        4. Após executar os dois OBSERVABLE precisamos limpar o formulário, ou seja, precisamos executar alguns comandos após ele finalizar as operaçõrs,
+        por isso nós usamos o 'tap' que literamente da um TAPA no código ao final dele, nesse caso quando tudo terminar nós limparemos o formulário
+
+        OBS: Lembre-se, nós sempre adc no PIPE esses tipos de verificações... pois é um canal onde será efetuado processos e terá uma saída
+        */
+       this.comments$ = this.photoService
+            .addComments(this.photoId, comment) //Quando
+            .pipe( 
+                switchMap(() => this.photoService.getComments(this.photoId)))
+            .pipe(
+                tap( () => {
+                this.commentForm.reset();
+                // alert('Comentário adicionado com sucesso!');
+            }));
 
     }
 
