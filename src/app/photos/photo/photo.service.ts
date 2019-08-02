@@ -53,7 +53,6 @@ export class PhotoService {
         return this.http.get<PhotoComment[]>(API + '/photos/' + photoId + '/comments');
     }
 
-
     //Enviando comentário para o back-end adicionar na base, informando o id da foto + o texto do comentário
     addComments(photoId: number, commentText: string){
         return this.http.post(
@@ -62,5 +61,8 @@ export class PhotoService {
         );
     }
 
+    removePhoto(photoId: number){
+        return this.http.delete(API + '/photos/' + photoId);
+    }
 
 }
