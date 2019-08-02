@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Photo } from '../photo/photo';
 import { PhotoService } from '../photo/photo.service';
+import { assertDataInRangeInternal } from '@angular/core/src/render3/util';
 
 @Component({
   selector: 'ap-photo-list',
@@ -26,11 +27,17 @@ export class PhotoListComponent implements OnInit {
 
   //ngOnInit -> Usado para inicialização (usamos a interface 'OnInit' para auxiliar)
   ngOnInit(): void {
-    this.userName = this.activatedRoute.snapshot.params.userName;
+
+    //Em nossa ROTA ela retornar um OBSERVABLE, nesse caso em nossa aplicação estamos usando o SUBCRIBE para -> Ficar escutando as mudanças
+    // Essas mudanças é de rota de usuároo X para usuário Y, toda vez que ele fizer isso ele não recarrega a página, por isso fazemos isso,
+    // toda vez q alterar a rota nós vamos atualizar as fotos daquele usuário, dessa forma não ficará com fotos de outro usuario na URL de outro usuario
+    this.activatedRoute.params.subscribe(params => {
+      this.userName = params.userName;
+      this.photos = this.activatedRoute.snapshot.data['photos'];
+    });
+
     
-    //snapshot -> Me da uma fotografia de como estamos agora e usando 'data' pegamos os dados/retorno da propriedade setada 'photos' lá nas rotas
-    //Irá apresentar quando tudo tiver 'RESOLVIDO', portanto o usuário não irá ver mensagens desnecessário em segundos
-    this.photos = this.activatedRoute.snapshot.data['photos'];
+    
   }
 
   load() {
