@@ -7,6 +7,7 @@ import { UserService } from './../../../core/user/user.service';
 })
 export class ShowIfLoggedDirective implements OnInit{
     
+    // Renderer -> É uma abstração para modificarmos propriedades do DOM.
     constructor(
         private element: ElementRef<any>,
         private renderer: Renderer,
