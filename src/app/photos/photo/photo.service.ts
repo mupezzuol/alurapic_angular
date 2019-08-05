@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { PhotoComment } from './photo-comment';
 import { Photo } from './photo';
+import { map, catchError } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
 
 const API = 'http://localhost:3000';//Constante
 
@@ -63,6 +65,23 @@ export class PhotoService {
 
     removePhoto(photoId: number){
         return this.http.delete(API + '/photos/' + photoId);
+    }
+
+
+    //Método já retornando quase tudo pronto, observable, verificando erro de foto já curtida de acordo com o back-end etc...
+    like(photoId: number){
+        //1. Faço minha requisição pro back-end que retorna um status de OK, 304 (já curtido) ou erros diversos...
+        //2. No 1º pipe eu digo que todo retorno desse observable eu converto para TRUE
+        //3. No 2º pipe nós usamos um 'catchError' onde verificamos caso o erro seja 304 (foto já curtida) nós retornamos um OBSERVABLE false,
+        //caso seja outro status jogará uma Exception normalmente....
+        return this.http.post(
+            API + '/photos/' + photoId + '/like',
+            {}, //Parametro enviado -> Vazio
+            { observe: 'response'}) //Propriedade para que seja habilitado a forma para pegarmos os valores de resposta da requisição, headers, code de status etc...
+            .pipe(map(res => true))
+            .pipe(catchError( err => {
+                return err.status == '304' ? of(false) : throwError(err); // of -> Retorna um OBSERVABLE
+            }));
     }
 
 }
