@@ -1,3 +1,4 @@
+import { UserService } from './../../core/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,7 +21,8 @@ export class PhotoDetailsComponent implements OnInit{
         private route: ActivatedRoute,
         private router: Router,
         private photoService: PhotoService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+        private userService: UserService) { }
     
     ngOnInit(): void {
         //snapshot -> Fotografia atual de onde estou, componentes etc... ou seja, contexto atual que seria o rounterLink etc...
@@ -38,8 +40,8 @@ export class PhotoDetailsComponent implements OnInit{
                 () => {
                     //Chamamos o método que monta o alerta de sucesso passando a mensagem que no component de 'header' chamou o component de 'alert' que fica escutando 'subject'
                     //Assim que é alterado o component altera também e é sempre envaziado o array de mensagem a cada 3 segundos
-                    this.alertService.success('Photo removed');
-                    this.router.navigate(['']);
+                    this.alertService.success('Photo removed', true);
+                    this.router.navigate(['/user', this.userService.getUserName()]);
                 },
                 err => {
                     console.log(err.message);
