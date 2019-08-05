@@ -1,8 +1,8 @@
-import { UserService } from './../user/user.service';
-import { TokenService } from './../token/token.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators'; //RxJS -> Reactive Extensions for JavaScript. 
+
+import { UserService } from './../user/user.service';
 
 const API_URL = 'http://localhost:3000';//Constante
 

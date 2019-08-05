@@ -1,6 +1,6 @@
 import { TokenService } from './../token/token.service';
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import * as jwt_decode from 'jwt-decode'//Importanto tudo (*) de jwt-decode e dando um alias para ele as (jtw_decode)
 
 import { User } from './user';
