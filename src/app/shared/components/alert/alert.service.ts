@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 export class AlertService{
 
     //Subject possui o 'asObservable' ou seja, podemos ficar escutando esse atributo para usarmos o 'subcribe()' nele
-    alertSubject: Subject<Alert>
+    alertSubject: Subject<Alert> = new Subject<Alert>();
 
     success(message: string){
         this.alert(AlertType.SUCCESS, message);
