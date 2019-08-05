@@ -1,10 +1,10 @@
-import { PhotoComment } from './../photo/photo-comment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { PhotoService } from './../photo/photo.service';
 import { Photo } from '../photo/photo';
 import { Observable } from 'rxjs';
+import { AlertService } from 'src/app/shared/components/alert/alert.service';
 
 @Component({
     selector: 'ap-photo-details',
@@ -19,7 +19,8 @@ export class PhotoDetailsComponent implements OnInit{
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private photoService: PhotoService) { }
+        private photoService: PhotoService,
+        private alertService: AlertService) { }
     
     ngOnInit(): void {
         //snapshot -> Fotografia atual de onde estou, componentes etc... ou seja, contexto atual que seria o rounterLink etc...
@@ -33,7 +34,15 @@ export class PhotoDetailsComponent implements OnInit{
     remove(){
         this.photoService
             .removePhoto(this.photoId)
-            .subscribe(() => this.router.navigate(['']));
+            .subscribe(
+                () => {
+                    this.alertService.success('Photo removed');
+                    this.router.navigate(['']);
+                },
+                err => {
+                    console.log(err.message);
+                    this.alertService.warning('Could not delete the photo!');
+                });
     }
     
 }

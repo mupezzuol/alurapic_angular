@@ -27,6 +27,10 @@ export class AlertComponent {
     }
 
     removeAlert(alertToRemove: Alert){
+        //Use filter() quando: é preciso remover elementos indesejados com base em alguma(s) condição(ões).
+        //  percorre o array da esquerda para a direita invocando uma função de retorno em cada elemento. 
+        //O valor retornado deve ser um booleano que indica se o elemento será mantido ou descartado. 
+        //Depois de todos os elementos terem sido analisados, filter() retorna um novo array com todos os elementos que retornaram como verdadeiro.
         this.alerts = this.alerts.filter(alert => alert != alertToRemove);
     }
 
