@@ -1,15 +1,65 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
+// Ambiente -> DESENVOLVIMENTO -> ng serve
 export const environment = {
-  production: false
+  production: false,
+  ApiUrl: 'http://localhost:3000'
 };
 
+
 /*
- * In development mode, to ignore zone related error stack frames such as
- * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
- * import the following file, but please comment it out in production mode
- * because it will have performance impact when throw error
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+* Tudo que consta dentro dessa constante 'environment' é de acordo com o ambiente ele mudará;
+* Para configuar devemos mexer em um arquivo chamado 'angular.json' e modificar as configurações dos nomes dos arquivos que serão chamados,
+segue abaixo os exemplos de como fazer isso.
+
+BUILD PROD:
+- ng build --prod
+- ng build --configuration production
+
+BUILD HOMO/QA:
+- ng build --configuration homo
+
+
+ARQUIVO DE CONFIG -> angular.json
+
+SEGUE ABAIXO ESTILO DE CONFIGURAÇÃO:
+"configurations": {
+  
+  "production": {
+    "fileReplacements": [
+      {
+        "replace": "src/environments/environment.ts",
+        "with": "src/environments/environment.prod.ts"
+      }
+    ],
+    "optimization": true,
+    "outputHashing": "all",
+    "sourceMap": false,
+    "extractCss": true,
+    "namedChunks": false,
+    "aot": true,
+    "extractLicenses": true,
+    "vendorChunk": false,
+    "buildOptimizer": true
+  },
+
+  "homo": {
+    "fileReplacements": [
+      {
+        "replace": "src/environments/environment.ts",
+        "with": "src/environments/environment.homo.ts"
+      }
+    ],
+    "optimization": true,
+    "outputHashing": "all",
+    "sourceMap": false,
+    "extractCss": true,
+    "namedChunks": false,
+    "aot": true,
+    "extractLicenses": true,
+    "vendorChunk": false,
+    "buildOptimizer": true
+  }
+}
+
+*/
+

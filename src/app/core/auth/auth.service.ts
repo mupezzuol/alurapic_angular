@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators'; //RxJS -> Reactive Extensions for JavaScript. 
 
 import { UserService } from './../user/user.service';
+import { environment } from './../../../environments/environment'
 
-const API_URL = 'http://localhost:3000';//Constante
+const API_URL = environment.ApiUrl;//Constante de acordo com o ambiente
 
 //Será uma instancia única para a aplicação inteira
 @Injectable({

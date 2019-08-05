@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { PhotoComment } from './photo-comment';
-import { Photo } from './photo';
 import { map, catchError } from 'rxjs/operators';
 import { of, throwError } from 'rxjs';
 
-const API = 'http://localhost:3000';//Constante
+import { PhotoComment } from './photo-comment';
+import { Photo } from './photo';
+import { environment } from './../../../environments/environment'
+
+const API_URL = environment.ApiUrl;//Constante de acordo com o ambiente
 
 //Diz que meu Service é INJETAVEL + todos podem acessa-los (provider root) porém será uma instancia única para a aplicação inteira
 @Injectable({
@@ -21,7 +22,7 @@ export class PhotoService {
 
     listFromUser(userName: string) {
         return this.http
-            .get<Photo[]>(API + '/' + userName + '/photos');
+            .get<Photo[]>(API_URL + '/' + userName + '/photos');
     }
 
     //Método retorna um objeto Observable
@@ -31,7 +32,7 @@ export class PhotoService {
 
         //Param é o msm nome da const params, por isso emitimos códigos
         return this.http
-            .get<Photo[]>(API + '/' + userName + '/photos', { params });
+            .get<Photo[]>(API_URL + '/' + userName + '/photos', { params });
     }
 
     upload(desc: string, allowComments: boolean, file: File) {
@@ -44,27 +45,27 @@ export class PhotoService {
         formData.append('imageFile', file);
 
         return this.http
-            .post(API + '/photos/upload', formData);
+            .post(API_URL + '/photos/upload', formData);
     }
 
     findById(photoId: number){
-        return this.http.get<Photo>(API + '/photos/' + photoId);
+        return this.http.get<Photo>(API_URL + '/photos/' + photoId);
     }
 
     getComments(photoId: number) {
-        return this.http.get<PhotoComment[]>(API + '/photos/' + photoId + '/comments');
+        return this.http.get<PhotoComment[]>(API_URL + '/photos/' + photoId + '/comments');
     }
 
     //Enviando comentário para o back-end adicionar na base, informando o id da foto + o texto do comentário
     addComments(photoId: number, commentText: string){
         return this.http.post(
-            API + '/photos/' + photoId + '/comments',
+            API_URL + '/photos/' + photoId + '/comments',
             { commentText }
         );
     }
 
     removePhoto(photoId: number){
-        return this.http.delete(API + '/photos/' + photoId);
+        return this.http.delete(API_URL + '/photos/' + photoId);
     }
 
 
@@ -75,7 +76,7 @@ export class PhotoService {
         //3. No 2º pipe nós usamos um 'catchError' onde verificamos caso o erro seja 304 (foto já curtida) nós retornamos um OBSERVABLE false,
         //caso seja outro status jogará uma Exception normalmente....
         return this.http.post(
-            API + '/photos/' + photoId + '/like',
+            API_URL + '/photos/' + photoId + '/like',
             {}, //Parametro enviado -> Vazio
             { observe: 'response'}) //Propriedade para que seja habilitado a forma para pegarmos os valores de resposta da requisição, headers, code de status etc...
             .pipe(map(res => true))
