@@ -54,5 +54,18 @@ export class PhotoDetailsComponent implements OnInit{
                     this.alertService.warning('Could not delete the photo!');
                 });
     }
+
+    like(photo: Photo) {
+        //O meu OBSERVABLE retorna um boolean, de acordo com oq foi implementado no Serviço de PhotosService
+        //Eu verifico o retorno, se for TRUE, é pq ele já foi CLICADO, portanto eu chamo o serviço que lista a foto para atualizar, 
+        //caso contrário é pq ele clicou a primeira vez e segue fluxo normal
+        this.photoService
+            .like(photo.id)
+            .subscribe(liked => {
+                if(liked) {
+                    this.photo$ = this.photoService.findById(photo.id);
+                }
+            });
+    }
     
 }
