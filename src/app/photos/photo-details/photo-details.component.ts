@@ -36,6 +36,8 @@ export class PhotoDetailsComponent implements OnInit{
             .removePhoto(this.photoId)
             .subscribe(
                 () => {
+                    //Chamamos o método que monta o alerta de sucesso passando a mensagem que no component de 'header' chamou o component de 'alert' que fica escutando 'subject'
+                    //Assim que é alterado o component altera também e é sempre envaziado o array de mensagem a cada 3 segundos
                     this.alertService.success('Photo removed');
                     this.router.navigate(['']);
                 },

@@ -1,3 +1,4 @@
+<!--Mensagem do Bootstrap de alert, de acordo com o tipo de alert que está no array de 'alerts'-->
 <div *ngFor="let alert of alerts" class="text-center {{ getAlertClass(alert) }}">
     {{ alert.message }}
 </div>
