@@ -31,6 +31,12 @@ export class PhotoDetailsComponent implements OnInit{
         
         //Usamos o ASYNC + PIPE e o Subscribe é feito no HTML na expressão passada pro *ngIf
         this.photo$ = this.photoService.findById(this.photoId);
+
+        //Busco minhas fotos, e trato quando não tiver foto, mando para página de NOT-FOUND
+        this.photo$.subscribe(() => {}, err => {
+            console.log(err.message);
+            this.router.navigate(['not-found']);
+        })
     }
 
     remove(){
