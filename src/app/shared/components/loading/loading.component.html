@@ -1,0 +1,11 @@
+<!--
+ngclass -> Ele adiciona uma 'class' de acordo com o retorno da expressão, variavel etc...
+caso já tenho um 'class' na tag, ele adiciona normalmente o valor da empressao nessa class já existente
+
+Exemplo:
+-> class="loading" 
+OU
+-> class="stopped"
+
+-->
+<hr [ngclass]="loading$ | async">
