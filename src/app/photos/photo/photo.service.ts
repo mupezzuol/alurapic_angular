@@ -44,8 +44,18 @@ export class PhotoService {
         formData.append('allowComments', allowComments ? 'true' : 'false');//Retorna String, se for true ou false
         formData.append('imageFile', file);
 
+        //3º Param é um obj javascript para dizer que queremos algumas coisas no retorno da requisição
+        //Nesse caso nós falamos que vamos querer observar 'observe' os eventos + ver detalhes do progresso 'reportProgress' para apresentar para o usuário
         return this.http
-            .post(API_URL + '/photos/upload', formData);
+            .post(
+                API_URL + '/photos/upload', 
+                formData,
+                {
+                    observe: 'events',
+                    reportProgress: true
+                });
+
+
     }
 
     findById(photoId: number){
