@@ -1,7 +1,9 @@
+import { ServerLog } from './server-log';
 import { UserService } from './../../core/user/user.service';
 import { ErrorHandler, Injector, Injectable } from '@angular/core';
 import * as StackTrace from 'stacktrace-js';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { ServerLogService } from './server-log.service';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler{
@@ -15,7 +17,7 @@ export class GlobalErrorHandler implements ErrorHandler{
         // LocationStrategy -> é responsavel por pegar diversos tipos de Location, path de url e etc...
         const location = this.injector.get(LocationStrategy);
         const userService = this.injector.get(UserService);//Injeção de UserService
-
+        const serverLogService = this.injector.get(ServerLogService);
 
         // Atribuo para URL caso  o location seja da mesma instancia de 'PathLocationStrategy', pois essa instancia possui o método 'path()' que retorna a URL requisitada
         const url = location instanceof PathLocationStrategy ? location.path() : '';
@@ -44,13 +46,21 @@ export class GlobalErrorHandler implements ErrorHandler{
                 
                 //Mensagem que será enviado para o servidor back-end que está preparado para receber esse objeto com as info de: message, url, userName, stack
                 //Lembrando que no JSON quando minha chave "chave" : "valor" é o mesmo nome eu posso somente passar o valor, nesse caso: message e url
-                console.log('O que será enviado para o back-end: ');
-                console.log({ 
+                console.log('Enviando LOG para API do back-end: ');
+                //O método log espera um tipo 'LogServer' porém esse objeto tem o mesmo 'shape', mesmo campos da interface, por isso ele não gera erro
+                serverLogService.log({
                     message,
                     url,
                     userName: userService.getUserName(),
                     stack: stackAsString
-                }); 
+                }).subscribe( 
+                    () => {
+                        console.log('LOG enviado com sucesso para o servidor de log.');
+                    },
+                    err => {
+                        console.log('Erro ao enviar LOG para o servidor de log.');
+                        console.log(err);
+                    })
 
             });
         
