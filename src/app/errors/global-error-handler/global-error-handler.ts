@@ -1,0 +1,12 @@
+import { ErrorHandler } from '@angular/core';
+
+export class GlobalErrorHandler implements ErrorHandler{
+    
+    handleError(error: any): void {
+        
+        console.log('Passei pelo Global Error Handler');
+        
+        throw error;//Deixo estorar o erro
+    }
+
+}
