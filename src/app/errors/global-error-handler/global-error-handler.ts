@@ -1,9 +1,11 @@
-import { ServerLog } from './server-log';
-import { UserService } from './../../core/user/user.service';
 import { ErrorHandler, Injector, Injectable } from '@angular/core';
-import * as StackTrace from 'stacktrace-js';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Router } from '@angular/router';
+
+import * as StackTrace from 'stacktrace-js';
+import { environment } from '../../../environments/environment'
 import { ServerLogService } from './server-log.service';
+import { UserService } from './../../core/user/user.service';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler{
@@ -18,6 +20,7 @@ export class GlobalErrorHandler implements ErrorHandler{
         const location = this.injector.get(LocationStrategy);
         const userService = this.injector.get(UserService);//Injeção de UserService
         const serverLogService = this.injector.get(ServerLogService);
+        const router = this.injector.get(Router);
 
         // Atribuo para URL caso  o location seja da mesma instancia de 'PathLocationStrategy', pois essa instancia possui o método 'path()' que retorna a URL requisitada
         const url = location instanceof PathLocationStrategy ? location.path() : '';
@@ -26,6 +29,10 @@ export class GlobalErrorHandler implements ErrorHandler{
         //Se tem error.message é pq é uma instancia de erro, portanto existe a propriedade 'message', caso contrário só converte o erro em String
         const message = error.message ? error.message : error.toString();
 
+        //Redireciono o usuário para página de Error Global caso o ambiente seja de PRODUÇÃO
+        //Se for DEV, ele continua o fluxo, justamente para ajudar o desenvolvedor caso de erro em algum lugar ele ver de cara o erro
+        if (environment.production) router.navigate(['/error']);
+        
 
         //StackTrace -> biblioteca que nos ajuda a mostrar o mesmo erro em todos os tipos de navegadores diferentes
         //fromError -> Instancia de erro, dentro dela eu recebo um array, cada item do array é 'frame' e eu pego chamando 'then()' pois é um promise
