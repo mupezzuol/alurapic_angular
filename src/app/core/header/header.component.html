@@ -17,12 +17,12 @@
             <ul class="list-unstyled">
                 
                 <li>
-                    <a showIfLogged [routerLink]="[ '/path', routeParam ]">Upload</a>
+                    <a showIfLogged [routerLink]="['p', 'add']">Upload</a>
                 </li>
                 <li showIfLogged>Menu item 2</li>
                 <li showIfLogged>Menu item 3</li>
             </ul>
-        </ap-menu>> 
+        </ap-menu>
         
         <div *ngIf="(user$ | async) as user; else login">
             <i class="fa fa-user-circle mr-1"></i>
