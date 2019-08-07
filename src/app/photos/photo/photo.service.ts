@@ -32,7 +32,7 @@ export class PhotoService {
 
         //Param é o msm nome da const params, por isso emitimos códigos
         return this.http
-            .get<Photo[]>(API_URL + '/' + userName + '/photos', { params });
+            .get<Photo[]>(API_URL + '/' + userName + '/photoss', { params });
     }
 
     upload(desc: string, allowComments: boolean, file: File) {
