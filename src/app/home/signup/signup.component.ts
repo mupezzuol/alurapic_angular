@@ -7,6 +7,7 @@ import { UserNotTakenValidatorService } from './user-not-taken.validator.service
 import { lowerCaseValidator } from 'src/app/shared/validators/lower-case.validator';
 import { NewUser } from './new-user';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
+import { userNamePassword } from './username-password.validator';
 
 
 //Se alguém pedir pra injetar o 'UserNotTakenValidatorService' eu digo que eu vou prover esse cara
@@ -30,6 +31,7 @@ export class SignUpComponent implements OnInit{
     
     ngOnInit(): void {
 
+        //Quando quremos fazer validação 'crossfield' entre campos, nós passamos como segundo paramatro para o formGroup o validator onde contém as regras
         this.signupForm = this.formBuilder.group({
             email: ['',
                 [
@@ -60,7 +62,9 @@ export class SignUpComponent implements OnInit{
                     Validators.maxLength(14)
                 ] 
             ]
-        });
+        }, {
+            validator: userNamePassword
+        });//validator -> é o seg parametro, pois estamos validando 'crossfield' chamando um validator customizado
 
         this.platformDetectorService.isPlatformBrowser() &&
                         this.emailInput.nativeElement.focus();

@@ -70,6 +70,14 @@
             *ngIf="signupForm.get('password').errors?.maxlength && form.submitted"
             text="Maxminum length is 14!">
         </ap-vmessage>
+
+        <!--Mensagem de validação referente a uma validação 'crossfield' que criamos -->
+        <!-- signupForm.errors?.userNamePassword -> Os crossfield são pegos como 'errors' do Form normal, portanto pegamos o nome que atribuimos no validador' -->
+        <ap-vmessage 
+            *ngIf="signupForm.errors?.userNamePassword"
+            text="Usuário e Senha devem ser diferente. Validação feita com validator customizado 'crossfield'.">
+        </ap-vmessage>
+
     </div>
 
     <!--signupForm.pending -> Esperando retorno de validações assincronas, como a validação de usuarios existentes-->
