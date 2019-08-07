@@ -1,6 +1,17 @@
 <header class="fixed-top">
     <nav class="navbar navbar-light bg-white">
-        <a class="navbar-brand">ALURAPIC</a>
+
+        <!--Botão que chama o '#menu' que é um component, chama o método que fica alternando entre TRUE ou FALSE-->
+        <a class="navbar-brand">
+            <i 
+                (click)="menu.toggle()" 
+                class="fa fa-bars mr-2">
+            </i>
+            ALURAPIC
+        </a>
+
+        <!--MENU com variavel de template #menu usada para associr o clique do botão na tag acima para chamar o toggle()-->
+        <ap-menu #menu></ap-menu>> 
         
         <div *ngIf="(user$ | async) as user; else login">
             <i class="fa fa-user-circle mr-1"></i>

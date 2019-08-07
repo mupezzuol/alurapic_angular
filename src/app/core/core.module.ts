@@ -8,6 +8,8 @@ import { FooterComponent } from './footer/footer.component';
 import { RequestInterceptor } from './auth/request.interceptor';
 import { HeaderComponent } from './header/header.component';
 import { LoadingModule } from '../shared/components/loading/loading.module';
+import { MenuComponent } from '../shared/components/menu/menu.component';
+import { MenuModule } from '../shared/components/menu/menu.module';
 // providers -> Adicono um Objeto dizendo sobre qual INTERCEPTADOR ele usará nas requisições, nesse caso eu passo a classe customizada 'RequestInterceptor'
 // multi -> é que se tiver outro INTERCEPTADOR ele poderá seguir em frente
 @NgModule({
@@ -19,7 +21,8 @@ import { LoadingModule } from '../shared/components/loading/loading.module';
         CommonModule,
         RouterModule,
         AlertModule,
-        LoadingModule
+        LoadingModule,
+        MenuModule
     ],
     exports: [
         HeaderComponent,
