@@ -1,14 +1,22 @@
 <!-- ngClass usamos a expressao setando o class css 'active-menu' e só irá setar essa class quando a variavel 'isShown' for TRUE -->
+<!-- tabindex é do HTML5, ao apertar o TAB ele irá navegar entre aquela TAG -->
+<!-- keyup.space é quando eu quero que uma tecla do teclado seja habilitado na função, nesse caso quando aperta ESPAÇO ele irá chamar o toggle() -->
 <div [ngClass]="{ 'active-menu': isShown}">
 
     <div class="menu-bar">
         <!-- uso evento click para fechar ou abrir o menu-->
-        <i class="fa fa-window-close" (click)="toggle"></i>
+        <i 
+            class="fa fa-window-close"
+            tabindex="0"
+            (keyup.space)="toggle()"
+            (click)="toggle">
+        </i>
 
         <!--ng-contente nós usamos para quando alguem chamar nosso componente, oq ele adicionar dentro da TAG, irá parar aqui dentro o conteúdo  -->
         <ng-content></ng-content>
     </div>
 
-    <div class="overlay" (click)="toggle()"></div>
+    <div class="overlay" (click)="toggle()">
+    </div>              
 
 </div>

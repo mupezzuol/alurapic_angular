@@ -4,6 +4,8 @@
         <!--Botão que chama o '#menu' que é um component, chama o método que fica alternando entre TRUE ou FALSE-->
         <a class="navbar-brand">
             <i 
+                tabindex="0"
+                (keyup.space)="menu.toggle()"
                 (click)="menu.toggle()" 
                 class="fa fa-bars mr-2">
             </i>
