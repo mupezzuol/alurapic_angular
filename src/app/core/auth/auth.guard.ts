@@ -22,7 +22,14 @@ export class AuthGuard implements CanActivate{
         
             //Se você não está logado você será jogado para tela de login, ou seja, esse GUARD é para colocar nas telas que precisa estar autenticado para acessar
             if(!this.userService.isLogged()){
-                this.router.navigate([''])//URL -> '' (home)
+                //URL -> '' (home)
+                this.router.navigate(
+                    [''],
+                    {
+                      queryParams: {
+                          fromUrl: state.url
+                      }  
+                    })
                 return false;
             }
 
