@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoadingModule } from '../shared/components/loading/loading.module';
 import { MenuComponent } from '../shared/components/menu/menu.component';
 import { MenuModule } from '../shared/components/menu/menu.module';
+import { ShowIfLoggedModule } from '../shared/directives/show-if-logged/show-if-logged.module';
 // providers -> Adicono um Objeto dizendo sobre qual INTERCEPTADOR ele usará nas requisições, nesse caso eu passo a classe customizada 'RequestInterceptor'
 // multi -> é que se tiver outro INTERCEPTADOR ele poderá seguir em frente
 @NgModule({
@@ -22,7 +23,8 @@ import { MenuModule } from '../shared/components/menu/menu.module';
         RouterModule,
         AlertModule,
         LoadingModule,
-        MenuModule
+        MenuModule,
+        ShowIfLoggedModule
     ],
     exports: [
         HeaderComponent,

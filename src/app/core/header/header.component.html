@@ -14,9 +14,13 @@
 
         <!--MENU com variavel de template #menu usada para associr o clique do botão na tag acima para chamar o toggle()-->
         <ap-menu #menu>
-            <ul>
-                <li>Menu item 1</li>
-                <li>Menu item 2</li>
+            <ul class="list-unstyled">
+                
+                <li>
+                    <a showIfLogged [routerLink]="[ '/path', routeParam ]">Upload</a>
+                </li>
+                <li showIfLogged>Menu item 2</li>
+                <li showIfLogged>Menu item 3</li>
             </ul>
         </ap-menu>> 
         
