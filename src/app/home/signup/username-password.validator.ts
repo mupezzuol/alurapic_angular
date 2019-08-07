@@ -9,5 +9,13 @@ export const userNamePassword: ValidatorFn = (formGroup: FormGroup) => {
     //Se o UserName for DIFERENTE de password, eu retorno NULL que significa que está OK. (null é usado para dizer que não deu nenhum erro)
     //Caso contrário eu retorno um obj com atributo 'userNamePassword' com valor TRUE
     // O atributo 'userNamePassword' é usamos para ser validado no HTML, como exemplo: *ngIf="signupForm.errors?.userNamePassword"
-    return userName != password ? null : { userNamePassword: true };
+    //Verifico se for VAZIO os dois campos ele não entra na validação
+    if(userName.trim() + password.trim()) {
+        return userName != password ? null : { userNamePassword: true };
+    } else {
+        return null;
+    }
+
+
+    
 };
