@@ -1,0 +1,14 @@
+<!-- ngClass usamos a expressao setando o class css 'active-menu' e só irá setar essa class quando a variavel 'isShown' for TRUE -->
+<div [ngClass]="{ 'active-menu': isShown}">
+
+    <div class="menu-bar">
+        <!-- uso evento click para fechar ou abrir o menu-->
+        <i class="fa fa-window-close" (click)="toggle"></i>
+
+        <!--ng-contente nós usamos para quando alguem chamar nosso componente, oq ele adicionar dentro da TAG, irá parar aqui dentro o conteúdo  -->
+        <ng-content></ng-content>
+    </div>
+
+    <div class="overlay" (click)="toggle()"></div>
+
+</div>
