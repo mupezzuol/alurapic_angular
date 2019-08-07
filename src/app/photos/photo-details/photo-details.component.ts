@@ -46,8 +46,9 @@ export class PhotoDetailsComponent implements OnInit{
                 () => {
                     //Chamamos o método que monta o alerta de sucesso passando a mensagem que no component de 'header' chamou o component de 'alert' que fica escutando 'subject'
                     //Assim que é alterado o component altera também e é sempre envaziado o array de mensagem a cada 3 segundos
+                    //ReplaceUrl: true -> Detona a rota do history do navegador, pois qnd deletar, ele clicar em voltar pelo browser, ele não acessa mais
                     this.alertService.success('Photo removed', true);
-                    this.router.navigate(['/user', this.userService.getUserName()]);
+                    this.router.navigate(['/user', this.userService.getUserName(), { replaceUrl: true }]);
                 },
                 err => {
                     console.log(err.message);
