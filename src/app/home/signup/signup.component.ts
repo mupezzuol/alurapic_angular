@@ -69,16 +69,21 @@ export class SignUpComponent implements OnInit{
 
 
     signup(){
-        // -> Pega todos os valores do inputs de acordo com o key adquirido no formControlName 'email, fullName, userName, password'
-        const newUser = this.signupForm.getRawValue() as NewUser;//Faço cast para 'NewUser'
+        //Verifica se o formulário passou pelas validações, ele só irá processar se o form for VALIDO && NÃO está PENDENTE
+        // signupForm.pending -> Esperando retorno de validações assincronas, como por exemplo a validação de usuarios existentes que é uma req assincrona
+        if(this.signupForm.valid && !this.signupForm.pending){
 
-        //Subscribe: 1º param é o retorno qnd deu CERTO e o 2ª é o retorno do Error quando algo aconteceu
-        this.signupService
-            .signup(newUser)
-            .subscribe(() => {
-                this.router.navigate(['']),
-                err => console.log('err')
-            })
+            // -> Pega todos os valores do inputs de acordo com o key adquirido no formControlName 'email, fullName, userName, password'
+            const newUser = this.signupForm.getRawValue() as NewUser;//Faço cast para 'NewUser'
+
+            //Subscribe: 1º param é o retorno qnd deu CERTO e o 2ª é o retorno do Error quando algo aconteceu
+            this.signupService
+                .signup(newUser)
+                .subscribe(() => {
+                    this.router.navigate(['']),
+                    err => console.log('err')
+                })
+        }
     }
 
 
